@@ -1,7 +1,11 @@
 import readlinesync from "readline-sync";
+import { ProdutoController } from "./src/controller/ProdutoController";
+import { ProdutoHardware } from "./src/model/ProdutoHardware";
 
 export function main() {
-  let opcao: number;
+  let opcao, tipo, id: number;
+  const pecas: ProdutoController = new ProdutoController();
+
   while (true) {
     console.log("*****************************************************");
     console.log("                                                     ");
@@ -31,22 +35,65 @@ export function main() {
     switch (opcao) {
       case 1:
         console.log("\n\nListar Todos os Produtos:\n\n");
+        pecas.listarProdutos();
         keyPress();
         break;
       case 2:
         console.log("\n\nListar Produtos Pelo ID:\n\n");
+        console.log("Digite o ID do Produto: ");
+        id = readlinesync.questionInt("");
+        pecas.listarProdutoPeloId(id);
         keyPress();
         break;
       case 3:
         console.log("\n\nCadastar Produto\n\n");
+        console.log("**********************************");
+        console.log("1 - Desktop");
+        console.log("2 - Notebook");
+        console.log("\n\n**********************************\n\n");
+
+        tipo = readlinesync.questionInt("Escolha o tipo de produto: ");
+
+        switch (tipo) {
+          case 1:
+            let desktop = new ProdutoHardware(pecas.gerarNumero(), "Desktop", pecas.gerarId(), "Dell");
+            pecas.cadastrarProduto(desktop);
+            break;
+          case 2:
+            let notebook = new ProdutoHardware(pecas.gerarNumero(), "Notebook", pecas.gerarId(), "Samsung");
+            pecas.cadastrarProduto(notebook);
+            break;
+        }
+
         keyPress();
         break;
       case 4:
         console.log("\n\nAtualizar Produto\n\n");
+        console.log("Digite o ID do Produto: ");
+        id = readlinesync.questionInt("");
+
+        let produto = pecas.buscarNoArray(id);
+
+        if (produto !== null) {
+          console.log("Digite o novo nome do Produto: ");
+          produto.nome = readlinesync.question("");
+          console.log("Digite o novo número de série do Produto: ");
+          produto.numeroID = readlinesync.questionInt("");
+          pecas.atualizarProduto(produto);
+        } else {
+          console.log("Produto não encontrado!");
+        }
+
         keyPress();
         break;
       case 5:
         console.log("\n\nDeletarProduto\n\n");
+
+        console.log("Digite o ID da Conta: ");
+        id = readlinesync.questionInt("");
+
+        pecas.deletarProduto(id);
+
         keyPress();
         break;
       case 6:

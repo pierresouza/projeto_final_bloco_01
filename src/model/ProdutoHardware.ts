@@ -3,8 +3,8 @@ import { Produto } from "./Produto";
 export class ProdutoHardware extends Produto {
   private _marca: string;
 
-  constructor(nome: string, numeroSerie: number, marca: string) {
-    super(numeroSerie, nome);
+  constructor(numeroID: number, nome: string, id: number, marca: string) {
+    super(numeroID, nome, id);
     this._marca = marca;
   }
 
