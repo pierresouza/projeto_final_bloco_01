@@ -1,33 +1,43 @@
 export abstract class Produto {
-  private _numeroSerie: number;
+  private _numeroID: number;
   private _nome: string;
+  private _id: number;
 
-  constructor(numeroSerie: number, nome: string) {
-    this._numeroSerie = numeroSerie;
+  constructor(numeroID: number, nome: string, id: number) {
+    this._numeroID = numeroID;
     this._nome = nome;
+    this._id = id;
   }
 
-  public get numeroSerie(): number {
-    return this._numeroSerie;
+  public get numeroID(): number {
+    return this._numeroID;
   }
 
   public get nome(): string {
     return this._nome;
   }
 
-  public set numeroSerie(value: number) {
-    this._numeroSerie = value;
+  public get id(): number {
+    return this._id;
+  }
+
+  public set numeroID(value: number) {
+    this._numeroID = value;
   }
 
   public set nome(value: string) {
     this._nome = value;
   }
 
+  public set id(value: number) {
+    this._id = value;
+  }
+
   public visualizar(): void {
     console.log("*****************************************************");
     console.log("Informações do Produto:");
     console.log("*****************************************************");
-    console.log(`Número de Série: ${this._numeroSerie}`);
+    console.log(`Número de Série: ${this._numeroID}`);
     console.log(`Nome: ${this._nome}`);
   }
 }
